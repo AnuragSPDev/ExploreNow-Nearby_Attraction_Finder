@@ -65,6 +65,14 @@ async def search_place(request: PlaceSearch, db: db_dependency):
     latitude, longitude = Helpers.get_lat_lon_from_geoapify(request.name)
     attractions_data = Helpers.fetch_attractions_from_geoapify(lat=latitude, lon=longitude)
 
+    if not attractions_data:
+        # Fallback logic: Search within a radius of 100 km if no attractions are found by name
+        attractions_data = Helpers.fetch_attractions_from_geoapify_by_radius(lat=latitude, lon=longitude, radius=100000)  
+
+        if not attractions_data:
+            # If no attractions are found after the radius search, return 'no data found'
+            return {"message": "No data found"}
+    
     attractions = [{
         "name": attr["properties"].get("name", "Unknown"),
         "category": attr["properties"].get("categories", ["Unknown"])[0],

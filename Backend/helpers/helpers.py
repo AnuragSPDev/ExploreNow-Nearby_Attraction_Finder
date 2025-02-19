@@ -37,6 +37,15 @@ class Helpers:
         return response.json().get("features", [])
     
     @staticmethod
+    def fetch_attractions_from_geoapify_by_radius(lat: float, lon: float, radius: int = 100000):  # 100 km by default
+        url = f"https://api.geoapify.com/v2/places?categories=tourism&filter=circle:{lon},{lat},{radius}&bias=proximity:{lon},{lat}&apiKey={GEOAPIFY_API_KEY}"
+        response = requests.get(url)
+        if response.status_code == 200:
+            return response.json().get('features', [])
+        else:
+            return []
+
+    @staticmethod
     def save_place_and_attractions(db: Session, name: str, lat: float, lon: float, attractions: list):
         place = Places(name=func.lower(name), latitude=lat, longitude=lon)
         db.add(place)
