@@ -1,0 +1,7 @@
+DB_HOST=<host>
+DB_PORT=<port>
+DB_NAME=<db_name>
+DB_USER=<user>
+DB_PASSWORD=<pwd>
+
+GEOAPIFY_API_KEY=<api_key>
