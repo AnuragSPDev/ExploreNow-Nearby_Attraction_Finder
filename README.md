@@ -50,7 +50,7 @@ To run this project locally, follow these steps:
 - Clone the repository:
 
   o bash
-    git clone https://github.com/yourusername/ExploreNow-App.git
+    git clone https://github.com/AnuragSPDev/ExploreNow-Nearby_Attraction_Finder.git
 
 - Navigate to the project directory:
 
