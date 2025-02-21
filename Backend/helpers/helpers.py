@@ -78,7 +78,6 @@ class Helpers:
 
     @staticmethod
     def fetch_cities_from_geoapify(state_name: str):
-        api_key = "YOUR_GEOAPIFY_API_KEY"
         url = f"https://api.geoapify.com/v1/geocode/search?text={state_name}&type=city&apiKey={GEOAPIFY_API_KEY}"
         response = requests.get(url)
         if response.status_code == 200:

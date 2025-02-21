@@ -13,12 +13,21 @@ class Places(Base):
     created_at = Column(DateTime, default=func.now())
     attractions = relationship('Attractions', back_populates='place')
 
+    @property
+    def formatted_attractions(self):
+        return ", ".join([attraction.name for attraction in self.attractions]) if self.attractions else "No attractions"
+
 class Categories(Base):
     __tablename__ = 'categories'
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, index=True)
     attractions = relationship('Attractions', back_populates='category')
+
+    @property
+    def formatted_attractions(self):
+        return ", ".join([attraction.name for attraction in self.attractions]) if self.attractions else "No attractions"
+    
 
 class Attractions(Base):
     __tablename__ = 'attractions'
@@ -34,3 +43,11 @@ class Attractions(Base):
     place = relationship('Places', back_populates='attractions')
     category = relationship('Categories', back_populates='attractions')
 
+    @property
+    def formatted_place(self):
+        return self.place.name if self.place else 'No place'
+    
+    @property
+    def formatted_category(self):
+        return self.category.name if self.category else 'No category'
+    

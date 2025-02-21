@@ -8,6 +8,8 @@ from database import SessionLocal, engine
 import models
 from helpers.helpers import Helpers
 from sqlalchemy import func
+from sqladmin import Admin
+from admin import add_views
 
 # Geoapify API key
 # GEOAPIFY_API_KEY = os.getenv("GEOAPIFY_API_KEY")
@@ -15,6 +17,13 @@ from sqlalchemy import func
 # GEOAPIFY_GEOCODE_URL = "https://api.geoapify.com/v1/geocode/search"
 
 app = FastAPI()
+admin = Admin(app, engine)
+
+# Add views to admin
+add_views(admin)
+
+# Mount the admin route
+app.mount('/admin', admin.app)
 
 app.add_middleware(
     CORSMiddleware,
